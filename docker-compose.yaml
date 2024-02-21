@@ -4,15 +4,14 @@ services:
   db:
     image: mariadb:10.3
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-    #     MYSQL_DATABASE: ${DB_NAME}
+      MARIADB_ROOT_PASSWORD: root
     volumes:
       - db_data:/var/lib/mysql
 
   pma:
     image: phpmyadmin:latest
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_ROOT_PASSWORD: root
     ports:
       - "8006:80"
     depends_on:
