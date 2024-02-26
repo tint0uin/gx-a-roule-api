@@ -16,7 +16,7 @@ class Meme
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private int $id;
 
     #[ORM\Column(length: 255)]
     private ?string $url = null;
@@ -25,7 +25,7 @@ class Meme
     private Collection $tags;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date = null;
+    private ?\DateTimeInterface $createdAt;
 
     #[ORM\Column]
     private ?int $useTime = null;
@@ -33,11 +33,12 @@ class Meme
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->id ?? null;
     }
 
     public function getUrl(): ?string
@@ -76,16 +77,9 @@ class Meme
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->date;
-    }
-
-    public function setDate(\DateTimeInterface $date): static
-    {
-        $this->date = $date;
-
-        return $this;
+        return $this->createdAt;
     }
 
     public function getUseTime(): ?int
