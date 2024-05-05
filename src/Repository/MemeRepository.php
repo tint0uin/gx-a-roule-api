@@ -20,4 +20,14 @@ class MemeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Meme::class);
     }
+
+    public function save(Meme $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
 }

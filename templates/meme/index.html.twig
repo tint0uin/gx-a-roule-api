@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+{% include "NavBar.html.twig" %}
+
+{% block body %}
+
+<h1>Meme</h1>
+    <div class="meme-container">
+        {% for meme in memes %}
+        <div class="meme">
+            <img src="{{ meme.url }}" alt="{{ meme.url }}">
+            <div class="tag-container">
+                {% for tag in meme.getTags() %}
+                <div class="tag">
+                    <p>{{tag.name}}</p>
+                </div>
+                {% endfor %}
+        {% endfor %}
+    </div>
+
+{% endblock %}

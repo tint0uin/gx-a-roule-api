@@ -34,6 +34,7 @@ class Meme
     {
         $this->tags = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
+        $this->useTime = 0;
     }
 
     public function getId(): ?int
@@ -67,6 +68,16 @@ class Meme
             $this->tags->add($tag);
         }
 
+        return $this;
+    }
+
+    public function addTags(array $tags): static
+    {
+        foreach ($tag as $tag){
+            if (!$this->tags->contains($tag)) {
+                $this->tags->add($tag);
+            }
+        }
         return $this;
     }
 

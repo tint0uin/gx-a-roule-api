@@ -1,0 +1,8 @@
+{% block formInCard %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="divEnregistrer">
+        <button id="enregistrer" class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+    </div>
+    {{ form_end(form) }}
+{%  endblock %}
