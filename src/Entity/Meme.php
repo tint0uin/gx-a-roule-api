@@ -24,8 +24,8 @@ class Meme
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'memes')]
     private Collection $tags;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $createdAt;
+    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
+    private ?\DateTimeImmutable $createdAt;
 
     #[ORM\Column]
     private ?int $useTime = null;
@@ -88,9 +88,10 @@ class Meme
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?String
     {
-        return $this->createdAt;
+        return $this->createdAt->format('d-m-Y');
+        //DateTime::createFromFormat("l dS F Y", $this->createdAt)->format('d/m/Y');
     }
 
     public function getUseTime(): ?int

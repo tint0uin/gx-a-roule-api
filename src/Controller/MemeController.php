@@ -16,7 +16,7 @@ use App\Service\TagService;
 
 class MemeController extends AbstractController
 {
-    #[Route('/meme', name: 'app_meme')]
+    #[Route('/meme', name: 'app_meme_index')]
     public function index(MemeRepository $memeRepository): Response
     {
         return $this->render('meme/index.html.twig', [
@@ -38,18 +38,23 @@ class MemeController extends AbstractController
 
             $TagService->AddTagAtMemeStr($meme, $tags, $tagRepo);
             
-
             $memeRepository->save($meme, true);
 
-            return $this->redirectToRoute('app_meme', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_meme', ['id' => $meme->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('meme/new.html.twig', [
             'meme' => $meme,
             'form' => $form,
         ]);
-
-
-       
     }
+
+    #[Route('/meme/{id}', name: 'app_meme')]
+    public function show(int $id, MemeRepository $memeRepository): Response
+    {
+        return $this->render('meme/meme.html.twig', [
+            'meme' => $memeRepository->find($id),
+        ]);
+    }
+
 }
